@@ -28,5 +28,9 @@ public class SEPA {
 	public Collection<DrctDbtTxInf> getTransaction(){
 		return this.DrctDbtTxInf;
 	}
+	
+	public void setTransactions(Collection<DrctDbtTxInf> transaction){
+		this.DrctDbtTxInf = transaction;
+	}
 }
 

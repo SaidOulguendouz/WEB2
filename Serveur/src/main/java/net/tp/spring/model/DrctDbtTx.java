@@ -17,4 +17,8 @@ public class DrctDbtTx{
 		super();
 		this.MndtRltdInf = mndtRltdInf;
 	}
+
+	public MndtRltdInf getMndtRltdInf() {
+		return MndtRltdInf;
+	}
 }

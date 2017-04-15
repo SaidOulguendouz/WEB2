@@ -17,20 +17,26 @@
 	        	<th>Action</th>
 	        	
 	        	<tr>
-	        		<td><a href="resume">/SEPA/resume</a></td>
+	        		<td><a href="detail">/detail</a></td>
 					<td>GET</td>
-					<td>Renvoie un flux XML contenant la liste des transactions</td>
+					<td>Renvoie un flux XML contenant la liste des transactions détaillées</td>
 	        	</tr>
 	        	
 	        	<tr>
-	        		<td><a href="">/SEPA/resume/id</a></td>
+	        		<td><a href="resume">/resume</a></td>
+					<td>GET</td>
+					<td>Renvoie un flux XML contenant la liste des transactions résumées</td>
+	        	</tr>
+	        	
+	        	<tr>
+	        		<td><a href="">/trx/id</a></td>
 					<td>GET</td>
 					<td>Renvoie un flux XML décrivant le détail de la transaction d’identifiant id
 					avec <strong>id = PmtId</strong></td>
 	        	</tr>        	
 	        	
 	        	<tr>
-	        		<td>/SEPA/insert</td>
+	        		<td>/depot</td>
 					<td>POST</td>
 					<td>Reçoit un flux XML décrivant une transaction, crée l'objet correspondant et
 					retourne la valeur PmtId</td>

@@ -16,10 +16,15 @@ public class MndtRltdInf {
 	public MndtRltdInf() {
 		
 	}
+	
 	public MndtRltdInf(String mndtId, String dtOfSgntr) {
 		super();
 		MndtId = mndtId;
 		DtOfSgntr = dtOfSgntr;
+	}
+	
+	public String getDtOfSgntr() {
+		return DtOfSgntr;
 	}
 	
 }
