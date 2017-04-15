@@ -44,6 +44,13 @@ public class SepaController {
 		return this.sepaResume;
 	}
 	
+	/*Affiche une synthèse des transactions stockées, avec les informations suivantes :
+	 * Nombre de transactions, montant total des transactions*/
+	@RequestMapping(value="/stats", method = RequestMethod.GET)
+	public @ResponseBody Statistique getSEPAStats() {
+		return transactionDAO.getStats();
+	}
+	
 	/*Renvoie un flux XML décrivant le détail de la transaction d’identifiant id 
 	 * avec id = PmtId */
 	@RequestMapping(value="/trx/{id}", method = RequestMethod.GET)

@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.tp.spring.model.DrctDbtTxInf;
 import net.tp.spring.model.DrctDbtTxInfResume;
+import net.tp.spring.model.Statistique;
 
 public interface ITransactionDAO {
 
@@ -14,4 +15,6 @@ public interface ITransactionDAO {
 	public List<DrctDbtTxInf> list();
 	
 	public List<DrctDbtTxInfResume> listResume();
+	
+	public Statistique getStats();
 }

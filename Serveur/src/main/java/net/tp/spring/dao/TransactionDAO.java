@@ -20,6 +20,7 @@ import net.tp.spring.model.DrctDbtTxInfResume;
 import net.tp.spring.model.FinInstnId;
 import net.tp.spring.model.Id;
 import net.tp.spring.model.MndtRltdInf;
+import net.tp.spring.model.Statistique;
 
 public class TransactionDAO implements ITransactionDAO{
 	
@@ -92,6 +93,13 @@ public class TransactionDAO implements ITransactionDAO{
 		});
 		
 		return listTransactions;
+	}
+
+	/*Retourne le nombre de transactions et le montant total des transactions dans la base de données*/
+	@Override
+	public Statistique getStats() {
+		return new Statistique(jdbcTemplate.queryForObject("SELECT COUNT(*) FROM transaction", Integer.class),
+				jdbcTemplate.queryForObject("SELECT ROUND(SUM(InstdAmt),2) FROM transaction", Double.class));
 	}
 
 }

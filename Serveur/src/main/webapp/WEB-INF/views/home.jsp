@@ -29,6 +29,13 @@
 	        	</tr>
 	        	
 	        	<tr>
+	        		<td><a href="stats">/stats</a></td>
+					<td>GET</td>
+					<td>Afficher une synthèse des transactions stockées, avec les informations suivantes : 
+					Nombre de transactions, montant total des transactions</td>
+	        	</tr>
+	        	
+	        	<tr>
 	        		<td><a href="">/trx/id</a></td>
 					<td>GET</td>
 					<td>Renvoie un flux XML décrivant le détail de la transaction d’identifiant id
