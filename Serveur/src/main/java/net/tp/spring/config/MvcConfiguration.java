@@ -45,7 +45,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
-	public ITransactionDAO getFournisseurDAO() {
+	public ITransactionDAO getTransactionDAO() {
 		return new TransactionDAO(getDataSource());
 	}
 }

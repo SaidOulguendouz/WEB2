@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
@@ -11,6 +10,8 @@
     <body>
     	<div align="center">
 	        <h1>Création d'un service REST avec SPRING</h1>
+	        <h2>Réalisé par : AOUDJIT Said Oulguendouz et MEDDAH Amine</h2>
+	        <h3>Date : 20 Avril 2017</h3>
 	        <table border="1">
 	        	<th>URL</th>
 	        	<th>Méthode</th>
@@ -43,10 +44,11 @@
 	        	</tr>        	
 	        	
 	        	<tr>
-	        		<td>/depot</td>
+	        		<td><a href="">/depot</a></td>
 					<td>POST</td>
-					<td>Reçoit un flux XML décrivant une transaction, crée l'objet correspondant et
-					retourne la valeur PmtId</td>
+					<td>Reçoit un flux XML décrivant une transaction. <br> 
+					Un message de retour indique le résultat de l'opération, avec le numéro 
+					d'identification en cas de succès, et un message d'erreur sinon.</td>
 	        	</tr>        	        	
 			</table>
     	</div>
