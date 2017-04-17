@@ -26,5 +26,9 @@ public class MndtRltdInf {
 	public String getDtOfSgntr() {
 		return DtOfSgntr;
 	}
+
+	public String getMndtId() {
+		return MndtId;
+	}
 	
 }

@@ -17,6 +17,9 @@ public class Dbtr {
 		super();
 		Nm = nm;
 	}
-	
+
+	public String getNm() {
+		return Nm;
+	}
 	
 }

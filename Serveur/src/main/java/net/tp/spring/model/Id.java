@@ -17,6 +17,8 @@ public class Id {
 		super();
 		IBAN = iBAN;
 	}
-	
-	
+
+	public String getIBAN() {
+		return IBAN;
+	}
 }

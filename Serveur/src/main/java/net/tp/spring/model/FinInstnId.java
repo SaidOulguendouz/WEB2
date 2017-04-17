@@ -17,4 +17,8 @@ public class FinInstnId {
 		super();
 		this.BIC = bic;
 	}
+
+	public String getBIC() {
+		return BIC;
+	}
 }

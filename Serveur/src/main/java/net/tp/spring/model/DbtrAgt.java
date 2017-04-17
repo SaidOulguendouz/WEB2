@@ -17,4 +17,8 @@ public class DbtrAgt {
 		super();
 		this.FinInstnId = finInstnId;
 	}
+
+	public FinInstnId getFinInstnId() {
+		return FinInstnId;
+	}
 }

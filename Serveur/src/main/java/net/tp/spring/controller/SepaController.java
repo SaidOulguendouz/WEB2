@@ -1,6 +1,13 @@
 package net.tp.spring.controller;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.StringReader;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.Document;
 
 import net.tp.spring.dao.ITransactionDAO;
 import net.tp.spring.model.*;
+import net.tp.spring.validator.ValidateXML;
 
 @Controller
 public class SepaController {
@@ -61,10 +70,44 @@ public class SepaController {
 	/*Reçoit un flux XML décrivant une transaction, 
 	 * crée l'objet correspondant et retourne la valeur PmtId*/
 	@RequestMapping(value="/depot", method = RequestMethod.POST)
-	public @ResponseBody String addTransaction(@RequestBody DrctDbtTxInf drctDbtTxInf) {
+	public @ResponseBody Response addTransaction(@RequestBody String body) throws SAXException, ParserConfigurationException, IOException {
 		
-		sepa.addTransaction(drctDbtTxInf);
-		return drctDbtTxInf.getPmtId();
+		InputSource inputSource = new InputSource(new StringReader(body));
+		//InputSource source ;
+		
+		ValidateXML validator = new ValidateXML();
+		
+		if(validator.validate_XML("/sepa.xsd", inputSource)==0){
+			return new Response("Fichier XML non valide !", null, null);
+		}
+		
+		Document doc = (Document) DocumentBuilderFactory.newInstance().newDocumentBuilder()
+	            .parse(inputSource);
+		
+		int id = transactionDAO.getMaxId()+1;
+		
+		try{
+			DrctDbtTxInf drctDbtTxInf = new DrctDbtTxInf(id,Integer.toString(id),
+				doc.getElementsByTagName("PmtId").item(0).getTextContent(),
+				Double.parseDouble(doc.getElementsByTagName("InstdAmt").item(0).getTextContent()), 
+				new DrctDbtTx((new MndtRltdInf(doc.getElementsByTagName("MndtId").item(0).getTextContent(),
+						doc.getElementsByTagName("DtOfSgntr").item(0).getTextContent()))),
+				new DbtrAgt(new FinInstnId(doc.getElementsByTagName("BIC").item(0).getTextContent())),
+				new Dbtr(doc.getElementsByTagName("Nm").item(0).getTextContent()), 
+				new DbtrAcct(new Id(doc.getElementsByTagName("IBAN").item(0).getTextContent())),
+				doc.getElementsByTagName("RmtInf").item(0).getTextContent());
+		
+				if(transactionDAO.get(drctDbtTxInf.getPmtId())!=null){
+					return new Response("L'identifiant de votre transaction existe déjà !", null, null);
+				}
+				
+				transactionDAO.add(drctDbtTxInf);
+				
+				return new Response(null, "Transaction enregistrée.", drctDbtTxInf.getNum());
+		}
+		catch(NullPointerException e){
+			return new Response("Fichier XML non valide !", null, null);
+		}
 	}
 	
 	

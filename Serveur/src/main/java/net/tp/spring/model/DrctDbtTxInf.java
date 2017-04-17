@@ -1,13 +1,18 @@
 package net.tp.spring.model;
 
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "DrctDbtTxInf")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DrctDbtTxInf {
 
+	@XmlTransient
 	int id;
 	
+	@XmlTransient
 	String Num;
 	
 	@XmlElement
@@ -40,7 +45,7 @@ public class DrctDbtTxInf {
 			String rmtInf) {
 		super();
 		this.id = id;
-		Num = num;
+		Num = verifNum(num);
 		PmtId = pmtId;
 		InstdAmt = instdAmt;
 		DrctDbtTx = drctDbtTx;
@@ -49,13 +54,25 @@ public class DrctDbtTxInf {
 		DbtrAcct = dbtrAcct;
 		RmtInf = rmtInf;
 	}
-	
-	public String getPmtId(){
-		return this.PmtId;
+
+	public int getId() {
+		return id;
 	}
 
 	public String getNum() {
 		return Num;
+	}
+
+	public String verifNum(String n) {
+		while(n.length()<4){
+			n = "0"+n;
+		}
+		n = "AM"+n;
+		return n;
+	}
+
+	public String getPmtId() {
+		return PmtId;
 	}
 
 	public double getInstdAmt() {
@@ -64,6 +81,22 @@ public class DrctDbtTxInf {
 
 	public DrctDbtTx getDrctDbtTx() {
 		return DrctDbtTx;
+	}
+
+	public DbtrAgt getDbtrAgt() {
+		return DbtrAgt;
+	}
+
+	public Dbtr getDbtr() {
+		return Dbtr;
+	}
+
+	public DbtrAcct getDbtrAcct() {
+		return DbtrAcct;
+	}
+
+	public String getRmtInf() {
+		return RmtInf;
 	}
 	
 }

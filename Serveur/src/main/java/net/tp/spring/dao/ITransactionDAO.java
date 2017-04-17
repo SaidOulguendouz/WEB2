@@ -12,6 +12,8 @@ public interface ITransactionDAO {
 	
 	public DrctDbtTxInf get(String pmtId);
 	
+	public int getMaxId();
+	
 	public List<DrctDbtTxInf> list();
 	
 	public List<DrctDbtTxInfResume> listResume();

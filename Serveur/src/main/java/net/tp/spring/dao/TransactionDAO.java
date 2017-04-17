@@ -33,7 +33,15 @@ public class TransactionDAO implements ITransactionDAO{
 	/*Ajouter une nouvelle transaction à la base de données*/
 	@Override
 	public void add(DrctDbtTxInf DrctDbtTxInf) {
+		// insert
+		String sql = "INSERT INTO transaction (num, PmtId, InstdAmt, MndtId, DtOfSgntr, "
+				+ "BIC, Nm, IBAN, RmtInf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
+		jdbcTemplate.update(sql, DrctDbtTxInf.getNum(), DrctDbtTxInf.getPmtId(), DrctDbtTxInf.getInstdAmt(), 
+				DrctDbtTxInf.getDrctDbtTx().getMndtRltdInf().getMndtId(), 
+				DrctDbtTxInf.getDrctDbtTx().getMndtRltdInf().getDtOfSgntr()
+				, DrctDbtTxInf.getDbtrAgt().getFinInstnId().getBIC(), DrctDbtTxInf.getDbtr().getNm(), 
+				DrctDbtTxInf.getDbtrAcct().getId().getIBAN(), DrctDbtTxInf.getRmtInf());
 	}
 
 	/*Rechercher une transaction identifiée par pmtId dans la base de données*/
@@ -56,6 +64,12 @@ public class TransactionDAO implements ITransactionDAO{
 			}
 			
 		});
+	}
+
+	//Retourne la valeur maximale de "transaction_id"
+	@Override
+	public int getMaxId() {
+		return jdbcTemplate.queryForObject("SELECT MAX(transaction_id) FROM transaction", Integer.class);
 	}
 
 	/*Liste de toutes les transactions détaillées*/

@@ -17,6 +17,8 @@ public class DbtrAcct {
 		super();
 		Id = id;
 	}
-	
-	
+
+	public Id getId() {
+		return Id;
+	}
 }
