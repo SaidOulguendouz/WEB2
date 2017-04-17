@@ -78,7 +78,7 @@ public class SepaController {
 		ValidateXML validator = new ValidateXML();
 		
 		if(validator.validate_XML("/sepa.xsd", inputSource)==0){
-			return new Response("Fichier XML non valide !", null, null);
+			return new Response("Fichier XML non valide.", null, null);
 		}
 		
 		Document doc = (Document) DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -98,7 +98,7 @@ public class SepaController {
 				doc.getElementsByTagName("RmtInf").item(0).getTextContent());
 		
 				if(transactionDAO.get(drctDbtTxInf.getPmtId())!=null){
-					return new Response("L'identifiant de votre transaction existe déjà !", null, null);
+					return new Response("L'identifiant de votre transaction existe déjà.", null, null);
 				}
 				
 				transactionDAO.add(drctDbtTxInf);
