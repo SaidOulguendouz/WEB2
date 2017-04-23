@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +16,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -86,7 +89,7 @@ public class TransactionController {
 		return model;
 	}
 	
-	@RequestMapping(value="addtrx", method = RequestMethod.POST)
+	@RequestMapping(value="/addtrx", method = RequestMethod.POST)
 	public ModelAndView addTransaction(HttpServletRequest request, ModelAndView model) throws IOException, SAXException, ParserConfigurationException{
 		String trx = new String("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
 								+"<DrctDbtTxInf>"+
@@ -119,6 +122,28 @@ public class TransactionController {
 			model.addObject("response", d);
 		}else{
 			model.addObject("error","Valeurs non valides");
+		}
+		
+		model.setViewName("depotTransaction");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/addXmlFile", method = RequestMethod.POST)
+	public ModelAndView uploadFileHandler(@RequestParam("file") MultipartFile file, ModelAndView model) {
+		try {
+			byte[] bytes = file.getBytes();
+			String trx = new String(bytes, StandardCharsets.UTF_8);
+			
+			Document d = postRequest("https://sepabank.herokuapp.com/depot/", trx);
+			if(d!=null){
+				model.addObject("response", d);
+			}else{
+				model.addObject("error","Valeurs non valides");
+			}
+				
+		} catch (Exception e) {
+			model.addObject("error", "You failed to upload  => " + e.getMessage());
 		}
 		
 		model.setViewName("depotTransaction");

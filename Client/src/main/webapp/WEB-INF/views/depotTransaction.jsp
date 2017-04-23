@@ -78,6 +78,24 @@
 			</form>
 	    </div>
 	    
+	    <br>
+    	<div align="center">
+	    	<form action="addXmlFile" method="post" enctype="multipart/form-data">
+			<table style="border-style:solid;width:400px;">
+				<tr>
+					<td>Fichier XML :</td>
+					<td>
+						<input type="file" name="file" required="required">
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center"><br><input type="submit" value="transmettre"></td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	    
 	    <div align="center">
 	    	<% Document doc = (Document) request.getAttribute("response");
     			String error = (String) request.getAttribute("error");
