@@ -53,7 +53,7 @@
 				<tr>
 					<td>Name :</td>
 					<td>
-						<input name="Name" required="required" value=""/>
+						<input name="Nm" required="required" value=""/>
 					</td>
 				</tr>
 				
